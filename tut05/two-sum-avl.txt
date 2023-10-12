@@ -1,0 +1,58 @@
+/*
+
+Test:
+	A = [3, 4, 1, 3]
+	sum = 5
+
+Test:
+	A = [3, 4, 1, 3]
+	sum = 6
+
+Test:
+	A = [3, 4, 1, 3]
+	sum = 3
+
+Test:
+	A = [3, 4, 1, 3]
+	sum = 7
+
+Test:
+	A = [3, 4, 1, 3]
+	sum = 2
+
+*/
+
+
+hasTwoSum(A, sum):
+	Input:  int[n] A: array of n integers
+	        int sum: target sum
+	Output: true if A contains two distinct elements that sum to sum, false otherwise
+
+	if sum is even and sum/2 occurs more than once in A then
+		return true
+
+	t = new AVL tree
+	for each num in A:
+		if (2 * num) != sum:
+			insert num into t
+	
+	for each num in A:
+		if (sum - num) is in t then
+			return true
+	
+	return false
+
+
+hasTwoSum(A, sum):
+	Input:  int[n] A: array of n integers
+	        int sum: target sum
+	Output: true if A contains two distinct elements that sum to sum, false otherwise
+
+	t = new AVL tree
+	
+	for each num in A:       // O(n)
+		if (sum - num) is in t:       // O(log n)
+			return true
+		insert num into t
+	
+	return false

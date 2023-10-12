@@ -1,0 +1,132 @@
+Pseudocode for inserting new node into AVL Tree.
+
+struct TreeNode {
+    int data;
+    int height;
+    struct TreeNode *left;
+    struct TreeNode *right;
+}
+
+/**
+ * Args:
+ *      - node: The root node of an AVL tree/subtree
+ *      - data: New data to insert into tree
+ * Returns:
+ *      The new root node of the subtree after inserting new node.
+ */
+struct TreeNode* insertAVL(struct TreeNode* node, int data):
+    if node is empty tree:
+        return new node containing data
+    else if data == data(node):
+        return node
+    
+    if data < data(node):
+        node->left = insertAVL(node->left, data)
+    else if data > data(node):
+        node->right = insertAVL(node->right, data)
+    updateHeight(node)
+
+    leftHeight = node->left->height
+    rightHeight = node->right->height
+
+    if (leftHeight - rightHeight) > 1:
+        if data > data(node->left):
+            node->left = rotateLeft(node->left)
+        node = rotateRight(node)
+    else if (rightHeight - leftHeight) > 1:
+        if data < data(node->right) then
+            node->right = rotateRight(node->right)
+        node = rotateLeft(node)
+
+    return node
+
+/**
+ * Rotates the root of a BST leftwards and returns the new root
+ * Args:
+ *      - root: The BST root node to rotate left
+ * Returns:
+ *      The new node in the place of the rotated node.
+ */
+struct TreeNode* rotateLeft(struct TreeNode* root):
+    if (root is empty tree or root->right is empty tree):
+        return root
+
+    newRoot = root->right
+
+    root->right = newRoot->left
+    updateHeight(root)
+
+    newRoot->left = root
+    updateHeight(newRoot)
+
+    return newRoot
+
+/**
+ * Rotates the root of a BST rightwards and returns the new root
+ * Args:
+ *      - root: The BST root node to rotate right
+ * Returns:
+ *      The new node in the place of the rotated node.
+ */
+struct TreeNode* rotateRight(struct TreeNode* root):
+    if (root is empty tree or root->left is empty tree):
+        return root
+
+    newRoot = root->left
+
+    root->left = newRoot->right
+    updateHeight(root)
+
+    newRoot->right = root
+    updateHeight(newRoot)
+
+    return newRoot
+
+/**
+ * Inserts a new node at the root of the BST initially rooted at `node`
+ * Args:
+ *  - struct TreeNode* node: root of BST
+ *  - int data: value of new node to insert at root
+ */
+struct TreeNode* insertAtRoot(struct TreeNode* node, int data):
+    if (node is empty tree):
+        newNode = createNewNode(data)
+        return newNode
+
+    if (data < node->data):
+        node->left = insertAtRoot(node->left, data)
+        node = rotateRight(node)
+    else if (data > node->data):
+        node->right = insertAtRoot(node->right, data)
+        node = rotateLeft(node)
+    else:
+        // data == node->data; data to insert already exists, great, return it
+
+    return node
+
+
+// === Stack of insertAtRoot recursive ===
+
+struct TreeNode* insertAtRoot(struct TreeNode* X, int 7):
+    if (node is empty tree): // node == NULL
+        newNode = createNewNode(data)
+        return newNode // (7)
+
+struct TreeNode* insertAtRoot(struct TreeNode* (6), int 7):
+    else if (data > node->data): // 7 > 6
+        node->right = insertAtRoot(node->right, data) // insertAtRoot((X), 7) -> (7)
+        node = rotateLeft(node) // (7)
+
+    return node // (7)
+
+struct TreeNode* insertAtRoot(struct TreeNode* (8), int 7):
+    if (data < node->data): // 7 < 8
+        node->left = insertAtRoot(node->left, data) // insertAtRoot((6), 7) -> (7)
+        node = rotateRight(node) // (7)
+    return node // (7)
+
+struct TreeNode* insertAtRoot(struct TreeNode* (5), int 7):
+    else if (data > node->data): // 7 > 5
+        node->right = insertAtRoot(node->right, data) // insertAtRoot((8), 7) -> (7)
+        node = rotateLeft(node) // (7)
+    return node -> (7)
