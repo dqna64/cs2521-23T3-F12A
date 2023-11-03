@@ -1,0 +1,44 @@
+/**
+ * Method 1:
+ * Use BFS or DFS to traverse the graph/component starting from src
+ */
+Set reachable(Graph g, Vertex src) {
+	Set seen = SetNew();
+	
+	Queue q = QueueNew();
+	QueueEnqueue(q, src);
+	SetAdd(seen, src);
+	
+	while (!QueueIsEmpty(q)) {
+		curr = QueuePop(q)
+
+		if (SetContains(seen, curr)) continue
+		
+		SetAdd(seen, curr)
+
+		for (next in g->edges[curr]) {
+			QueueEnqueue(q, next)
+		}
+	}
+
+	return seen;
+}
+
+/**
+ * Method 2:
+ * Use recursive DFS to traverse the graph/component starting from src
+ */
+Set reachable(Graph g, Vertex src) {
+	Set seen = SetNew();
+	doReachable(g, src, seen);
+	return seen;
+}
+
+static void doReachable(Graph g, Vertex v, Set seen) {
+	if (SetContains(seen, v)) return;
+	SetAdd(seen, v);
+
+	for (w in g->edges[v]) {
+		doReachable(g, w, seen)
+	}
+}
